@@ -1,6 +1,6 @@
 [project]
 name = "kroki-mermaidx"
-version = "0.1.0"
+version = "0.2.0"
 description = "A browserless Mermaid companion service for Kroki, powered by mermaidx"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -17,7 +17,7 @@ classifiers = [
 ]
 dependencies = [
   "httpx>=0.28,<1",
-  "mermaidx==0.9.5",
+  "mermaidx==0.10.0",
   "starlette>=1.3.1,<2",
   "uvicorn>=0.34,<1",
 ]

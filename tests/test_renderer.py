@@ -4,6 +4,7 @@ import asyncio
 import struct
 import sys
 import time
+from importlib.metadata import version as _version
 
 import pytest
 
@@ -12,6 +13,10 @@ from kroki_mermaidx.errors import ConvertTimeoutError, DiagramSyntaxError, MaxTe
 from kroki_mermaidx.renderer import Renderer
 
 SOURCE = "flowchart LR\n  A[Hello] --> B{World?}\n"
+
+
+def mermaidx_version() -> str:
+    return _version("mermaidx")
 
 
 async def test_render_svg(settings: Settings):
@@ -79,7 +84,7 @@ async def test_timeout_kills_the_process(make_settings):
 
 
 async def test_check_reports_mermaidx_version(settings: Settings):
-    assert await Renderer(settings).check() == "0.9.5"
+    assert await Renderer(settings).check() == mermaidx_version()
 
 
 async def test_concurrency_limit(make_settings):

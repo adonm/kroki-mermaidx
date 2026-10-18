@@ -1,9 +1,15 @@
 from __future__ import annotations
 
+from importlib.metadata import version as _version
+
 from starlette.testclient import TestClient
 
 from kroki_mermaidx.app import create_app
 from kroki_mermaidx.errors import ConvertTimeoutError, DiagramSyntaxError
+
+
+def _mermaidx_version() -> str:
+    return _version("mermaidx")
 
 
 class FakeRenderer:
@@ -171,4 +177,4 @@ def test_lifespan_starts_and_stops_registrar(make_settings):
 def test_health_reports_probed_mermaidx_version(make_settings):
     app = create_app(make_settings(), registrar=StubRegistrar())
     with TestClient(app) as client:
-        assert client.get("/health").json()["mermaidx"] == "0.9.5"
+        assert client.get("/health").json()["mermaidx"] == _mermaidx_version()

@@ -1,0 +1,27 @@
+# Minimal Kroki gateway + mermaidx companion deployment.
+#
+# Companion service discovery is disabled by default and always disabled while
+# Kroki runs in SECURE safe mode. It is explicitly enabled here for a trusted,
+# local network: do not expose the gateway's /services API to the outside world.
+services:
+  kroki:
+    image: yuzutech/kroki:0.33.0
+    environment:
+      KROKI_SAFE_MODE: SAFE
+      KROKI_ENABLE_COMPANION_DISCOVERY: "true"
+      KROKI_COMPANION_REGISTRATION_TOKEN: change-me
+    ports:
+      - "8000:8000"
+
+  mermaidx:
+    build: .
+    image: kroki-mermaidx:dev
+    environment:
+      KROKI_URL: http://kroki:8000
+      KROKI_COMPANION_HOST: mermaidx
+      KROKI_COMPANION_PORT: "8006"
+      KROKI_COMPANION_REGISTRATION_TOKEN: change-me
+    ports:
+      - "8006:8006"
+    depends_on:
+      - kroki

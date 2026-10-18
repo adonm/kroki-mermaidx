@@ -39,6 +39,7 @@ discovery enabled and this companion registered as `mermaidx`:
 ```bash
 docker compose up --build
 curl -sS -X POST http://localhost:8000/mermaidx/svg \
+  -H 'Content-Type: text/plain' \
   --data-binary 'flowchart LR; A-->B-->C' -o diagram.svg
 ```
 
@@ -59,6 +60,7 @@ Render directly against the companion:
 
 ```bash
 curl -sS -X POST http://localhost:8006/mermaidx/svg \
+  -H 'Content-Type: text/plain' \
   --data-binary 'sequenceDiagram; Alice->>Bob: Hi' -o diagram.svg
 ```
 

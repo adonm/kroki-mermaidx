@@ -78,6 +78,22 @@ The gateway must run with `KROKI_SAFE_MODE=SAFE` and
 `KROKI_COMPANION_REGISTRATION_TOKEN` on both sides to protect the `/services`
 API.
 
+### Published image
+
+Multi-arch images (`linux/amd64`, `linux/arm64`) are published to the GitHub
+Container Registry from every `v*` tag:
+
+```bash
+docker run --rm -p 8006:8006 ghcr.io/adonm/kroki-mermaidx:latest
+```
+
+In Compose, replace `build: .` with the published image:
+
+```yaml
+  mermaidx:
+    image: ghcr.io/adonm/kroki-mermaidx:latest
+```
+
 ## API
 
 | Endpoint              | Description                                              |
